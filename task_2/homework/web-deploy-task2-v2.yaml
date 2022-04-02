@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web
+    version: v2
+  name: web-canary-task2-v2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: web
+        version: v2
+    spec:
+      containers:
+      - image: nginx:1.21
+        name: nginx-canary
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: nginx-cm-canary-v2
+            mountPath: /etc/nginx/conf.d
+      volumes:
+        - name: nginx-cm-canary-v2
+          configMap:
+            name: nginx-cm-task2-v2
+
