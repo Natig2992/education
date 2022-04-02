@@ -1,3 +1,13 @@
+ In Minikube in namespace kube-system, there are many different pods running. Your task is to figure out who creates them, and who makes sure they are running (restores them after deletion):
+
+Answer: kubelet service
+
+UID:
+
+`uid: 11b78b01-501f-4a8d-8ec5-f0b053712a43`
+
+Also, please look at screen in this repo...
+
 1. Create separate namespace for homework-task-2:
 
 `kubectl create ns nginx-ingress-hw`
