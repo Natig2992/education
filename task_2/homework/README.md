@@ -9,7 +9,7 @@ UID:
 Also, please look at screen "Answer_1 for task_2.png" in this repo...
 ---
 
-###ANSWER2:
+### ANSWER2:
 1. Create separate namespace for homework-task-2:
 
 `kubectl create ns nginx-ingress-hw`
