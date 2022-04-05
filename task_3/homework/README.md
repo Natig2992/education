@@ -20,7 +20,7 @@ spec:
           service:
             name: minio-def
             port:
-              number: 9001 # this is port for SVC (Service) not for an INGRESS!!!!!!INGRESS always is 80 port!!!!!!
+              number: 9001
 
 ---
 apiVersion: v1
