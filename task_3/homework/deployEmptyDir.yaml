@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-emptydir
+  labels:
+    app: deploy-emptydir
+spec:
+  replicas: 3      
+  selector:
+    matchLabels:
+      app: deploy-emptydir
+  template:
+    metadata:
+      labels:
+        app: deploy-emptydir
+    spec:
+      containers:
+        - name: deploy-emptydir
+          image: nginx:1.21
+          volumeMounts:
+            - mountPath: /tmp/test-dir
+              name: test-volume
+          ports:
+          - containerPort: 80
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "200m"  
+          command: ["/bin/sh"]
+          args: ["-c", "while true; do date >> /tmp/test-dir/file.txt; sleep 3; done"]    
+      volumes:
+        - name: test-volume
+          emptyDir:
+            {}                
