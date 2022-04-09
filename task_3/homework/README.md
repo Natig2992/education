@@ -242,3 +242,61 @@ head: cannot open '/var/lib/kubelet/pods/528fccea-682a-4bb4-9eff-c3b86c3d5e48/vo
 This is because we delete our deploy with all of the pods and out UID "528fccea-682a-4bb4-9eff-c3b86c3d5e48" our number is no longer valid
 
 4. Optional. Raise an nfs share on a remote machine. Create a pv using this share, create a pvc for it, create a deployment. Save data to the share, delete the deployment, delete the pv/pvc, check that the data is safe:
+
+ 1. Create one pv "pv-nfs" and one pvc "pvc-nfs":
+
+```
+kubectl apply -f pv-nfs.yaml
+kubectl apply -f pvc-nfs.yaml
+```
+
+2. Create deployment_service.yaml with new directives:
+
+```
+        volumeMounts:
+          - name: config-nginx
+            mountPath: "/etc/nginx/conf.d"
+          - name: nfs-www
+            mountPath: "/var/www/html/"
+      volumes:
+        - name: config-nginx
+          configMap:
+            name: nginx-configmap
+        - name: nfs-www
+          persistentVolumeClaim:
+            claimName: pvc-nfs
+kubectl apply -f deployment_service.yaml
+```
+
+3. On NFS server we share dir:
+
+```
+cat /etc/exports
+
+/opt/nfs4/      *(rw,sync,no_subtree_check,crossmnt,insecure,fsid=0)
+/opt/nfs4/backups       *(rw,sync,no_subtree_check,insecure)
+
+```
+All config for NFS mounting in pv-nfs.yaml file
+
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv-home
+  labels:
+    app: nfs-pv-app
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /backups
+    server: 10.88.25.83
+```
+
+See all screens in repo for proof, that NFS share  is working: 
+
