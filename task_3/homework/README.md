@@ -243,7 +243,7 @@ This is because we delete our deploy with all of the pods and out UID "528fccea-
 
 4. Optional. Raise an nfs share on a remote machine. Create a pv using this share, create a pvc for it, create a deployment. Save data to the share, delete the deployment, delete the pv/pvc, check that the data is safe:
 
-  1.  Create one pv "pv-nfs" and one pvc "pvc-nfs":
+1.  Create one pv "pv-nfs" and one pvc "pvc-nfs":
 
 ```
 kubectl apply -f pv-nfs.yaml
