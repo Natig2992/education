@@ -1,0 +1,29 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: admin-role
+  namespace: prod
+rules:
+  - apiGroups: ["apps"]
+    resources: ["*"]
+    verbs: ["*"]
+
+  - apiGroups: [""]
+    resources: ["*"]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: prod      
+  name: prod_admin
+
+subjects:
+- kind: User
+  name: prod_admin
+  apiGroup: rbac.authorization.k8s.io
+
+roleRef:
+  kind: Role
+  name: admin-role
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: edit-cluster
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["*"]  
+  
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: deploy_edit
+
+subjects:
+- kind: User
+  name: deploy_edit
+  apiGroup: rbac.authorization.k8s.io
+
+roleRef:
+  kind: ClusterRole
+  name: edit-cluster
+  apiGroup: rbac.authorization.k8s.io
