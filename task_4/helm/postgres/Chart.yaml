@@ -1,0 +1,28 @@
+annotations:
+  artifacthub.io/changes: |
+    - Initial release.
+  artifacthub.io/images: |
+    - name: template
+      image: postgres:13.3
+apiVersion: v2
+appVersion: "13.3"
+dependencies:
+- name: common
+  repository: https://nicholaswilde.github.io/helm-charts/
+  version: ~0.1.8
+description: The World's Most Advanced Open Source Relational Database
+home: https://github.com/nicholaswilde/helm-charts/tree/main/charts/postgres
+icon: https://d1q6f0aelx0por.cloudfront.net/product-logos/library-postgres-logo.png
+keywords:
+- postgres
+- database
+- relational
+maintainers:
+- email: ncwilde43@gmail.com
+  name: nicholaswilde
+name: postgres
+sources:
+- https://www.postgresql.org/
+- https://github.com/docker-library/postgres
+type: application
+version: 0.1.0
